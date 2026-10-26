@@ -487,7 +487,7 @@
             </div>
             <div class="form-group">
                 <label>Nhập mật mã quản trị</label>
-                <input type="password" id="authPasswordInput" placeholder="Nhập mật mã...">
+                <input type="password" id="authPasswordInput" placeholder="Nhập mật mã..." onkeydown="if(event.key === 'Enter') verifyPassword()">
             </div>
             <button type="button" class="btn-submit" onclick="verifyPassword()">XÁC NHẬN</button>
         </div>
@@ -523,7 +523,7 @@
 
     <script>
         const defaultScripts = [];
-        let actionType = ''; // 'add' hoặc id của script cần xóa
+        let actionType = ''; 
         let targetDeleteId = null;
 
         function getScripts() {
@@ -579,26 +579,25 @@
             });
         }
 
-        // Mở bảng nhập mật khẩu cho Thêm
         function openAuthModal() {
             actionType = 'add';
             document.getElementById('authPasswordInput').value = '';
             document.getElementById('authModal').classList.add('active');
+            setTimeout(() => document.getElementById('authPasswordInput').focus(), 100);
         }
 
         function closeAuthModal() {
             document.getElementById('authModal').classList.remove('active');
         }
 
-        // Mở bảng nhập mật khẩu cho Xóa
         function openAuthDelete(id) {
             actionType = 'delete';
             targetDeleteId = id;
             document.getElementById('authPasswordInput').value = '';
             document.getElementById('authModal').classList.add('active');
+            setTimeout(() => document.getElementById('authPasswordInput').focus(), 100);
         }
 
-        // Kiểm tra mật mã khi bấm xác nhận
         function verifyPassword() {
             const password = document.getElementById('authPasswordInput').value;
             if (password === "caodinhkhoi2822015-1979") {
@@ -621,7 +620,7 @@
         function saveScript(e) {
             e.preventDefault();
             const title = document.getElementById('scriptTitle').value.trim();
-                      const desc = document.getElementById('scriptDesc').value.trim();
+            const desc = document.getElementById('scriptDesc').value.trim();
             const code = document.getElementById('scriptCode').value.trim();
 
             if (!title || !code) return;
@@ -680,3 +679,5 @@
     </script>
 </body>
 </html>
+
+                
