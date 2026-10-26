@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDM TEAM | SCRIPT VAULT</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffcc;
+            --primary-glow: rgba(0, 255, 204, 0.4);
+            --accent: #ff0055;
+            --accent-glow: rgba(255, 0, 85, 0.4);
+            --bg-dark: #07090e;
+            --panel-bg: rgba(13, 17, 26, 0.85);
+            --panel-border: rgba(0, 255, 204, 0.3);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                linear-gradient(rgba(7, 9, 14, 0.88), rgba(7, 9, 14, 0.88)),
+                url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiahhXx_WfqflsefVHlGb__ibR4gHFT_N266mSqHNWIfS5FAJtHI3YPvw&s=10');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Header Layout */
+        header {
+            background: rgba(10, 14, 23, 0.95);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 4px 25px var(--primary-glow);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            object-fit: cover;
+        }
+
+        .brand-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-add-main {
+            background: linear-gradient(135deg, var(--accent), #b3003b);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        /* Search & Filter Bar */
+        .controls-bar {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            backdrop-filter: blur(8px);
+        }
+
+        @media (min-width: 768px) {
+            .controls-bar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 42px;
+            background: rgba(5, 7, 12, 0.7);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(0, 255, 204, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Script Grid */
+        .script-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 640px) {
+            .script-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .script-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Script Card */
+        .script-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .script-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.15rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .badge {
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge.blox-fruits { color: #00e5ff; border-color: #00e5ff; background: rgba(0, 229, 255, 0.1); }
+        .badge.king-legacy { color: #ff0055; border-color: #ff0055; background: rgba(255, 0, 85, 0.1); }
+        .badge.util { color: #ffb700; border-color: #ffb700; background: rgba(255, 183, 0, 0.1); }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .code-preview {
+            background: rgba(4, 6, 10, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: #a6accd;
+            margin-bottom: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-footer {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-card {
+            flex: 1;
+            padding: 9px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .btn-copy:hover {
+            background: #00ccb4;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-delete {
+            background: rgba(255, 0, 85, 0.15);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            max-width: 40px;
+        }
+
+        .btn-delete:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--panel-bg);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(5, 7, 12, 0.8);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            font-family: 'Fira Code', monospace;
+            resize: vertical;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--primary-glow);
+            margin-top: 10px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00ffcc;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <img src="https://i.postimg.cc/Hkgmx2xz/logo.jpg" alt="KDM Logo" class="brand-logo">
+                <div class="brand-text">
+                    <h1>KDM TEAM</h1>
+                    <p>SCRIPT VAULT SYSTEM</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-add-main" onclick="openModal()">
+                    <i class="fa-solid fa-plus"></i> Thêm Script
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Search & Filter Bar -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm tên script hoặc từ khóa..." oninput="renderScripts()">
+            </div>
+            <div class="category-tabs" id="categoryTabs">
+                <button class="tab-btn active" data-cat="all" onclick="filterCategory('all', this)">Tất cả</button>
+                <button class="tab-btn" data-cat="Blox Fruits" onclick="filterCategory('Blox Fruits', this)">Blox Fruits</button>
+                <button class="tab-btn" data-cat="King Legacy" onclick="filterCategory('King Legacy', this)">King Legacy</button>
+                <button class="tab-btn" data-cat="Tiện Ích" onclick="filterCategory('Tiện Ích', this)">Tiện Ích</button>
+            </div>
+        </div>
+
+        <!-- Script Cards Grid -->
+        <div class="script-grid" id="scriptGrid">
+            <!-- Render bằng JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal Thêm Script -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">THÊM SCRIPT MỚI</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="addScriptForm" onsubmit="saveScript(event)">
+                <div class="form-group">
+                    <label>Tên Script</label>
+                    <input type="text" id="scriptTitle" placeholder="VD: Redz Hub Auto Farm" required>
+                </div>
+                <div class="form-group">
+                    <label>Thể Loại</label>
+                    <select id="scriptCategory">
+                        <option value="Blox Fruits">Blox Fruits</option>
+                        <option value="King Legacy">King Legacy</option>
+                        <option value="Tiện Ích">Tiện Ích</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mô Tả Ngắn</label>
+                    <input type="text" id="scriptDesc" placeholder="VD: Hack Farm FAST, Auto Chest...">
+                </div>
+                <div class="form-group">
+                    <label>Mã Code / Link Script (loadstring...)</label>
+                    <textarea id="scriptCode" placeholder="loadstring(game:HttpGet('...'))()" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">LƯU SCRIPT</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">Đã sao chép Script thành công!</div>
+
+    <script>
+        // Không còn dữ liệu mẫu, mảng bắt đầu trống rỗng
+        const defaultScripts = [];
+
+        let currentCategory = 'all';
+
+        // Lấy danh sách từ LocalStorage hoặc dùng mảng trống
+        function getScripts() {
+            const saved = localStorage.getItem('kdm_scripts');
+            if (!saved) {
+                localStorage.setItem('kdm_scripts', JSON.stringify(defaultScripts));
+                return defaultScripts;
+            }
+            return JSON.parse(saved);
+        }
+
+        // Render các Script ra giao diện
+        function renderScripts() {
+            const scripts = getScripts();
+            const searchKeyword = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('scriptGrid');
+            grid.innerHTML = '';
+
+            const filtered = scripts.filter(item => {
+                const matchCategory = currentCategory === 'all' || item.category === currentCategory;
+                const matchSearch = item.title.toLowerCase().includes(searchKeyword) || 
+                                    item.desc.toLowerCase().includes(searchKeyword);
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 50px 20px;">
+                    <i class="fa-solid fa-code" style="font-size: 2.5rem; margin-bottom: 12px; color: var(--primary);"></i>
+                    <p style="font-size: 1.1rem; font-weight: 600;">Chưa có script nào được lưu!</p>
+                    <p style="font-size: 0.85rem; margin-top: 5px;">Nhấn vào nút "Thêm Script" phía trên để bắt đầu thêm script mới của bạn.</p>
+                </div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                let badgeClass = 'util';
+                if(item.category === 'Blox Fruits') badgeClass = 'blox-fruits';
+                if(item.category === 'King Legacy') badgeClass = 'king-legacy';
+
+                const card = document.createElement('div');
+                card.className = 'script-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <h3 class="card-title">${escapeHtml(item.title)}</h3>
+                            <span class="badge ${badgeClass}">${escapeHtml(item.category)}</span>
+                        </div>
+                        <p class="card-desc">${escapeHtml(item.desc || 'Không có mô tả.')}</p>
+                        <div class="code-preview">${escapeHtml(item.code)}</div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-card btn-copy" onclick="copyCode('${encodeURIComponent(item.code)}')">
+                            <i class="fa-regular fa-copy"></i> SAO CHÉP CODE
+                        </button>
+                        <button class="btn-card btn-delete" onclick="deleteScript(${item.id})">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Lọc theo Category Tab
+        function filterCategory(cat, element) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            renderScripts();
+        }
+
+        // Lưu Script mới
+        function saveScript(e) {
+            e.preventDefault();
+            const title = document.getElementById('scriptTitle').value.trim();
+                      const category = document.getElementById('scriptCategory').value;
+            const desc = document.getElementById('scriptDesc').value.trim();
+            const code = document.getElementById('scriptCode').value.trim();
+
+            if (!title || !code) return;
+
+            const scripts = getScripts();
+            const newScript = {
+                id: Date.now(),
+                title,
+                category,
+                desc,
+                code
+            };
+
+            scripts.unshift(newScript);
+            localStorage.setItem('kdm_scripts', JSON.stringify(scripts));
+            
+            closeModal();
+            document.getElementById('addScriptForm').reset();
+            renderScripts();
+            showToast('Đã thêm Script mới thành công!');
+        }
+
+        // Xóa Script
+        function deleteScript(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa Script này khỏi giao diện?')) {
+                let scripts = getScripts();
+                scripts = scripts.filter(s => s.id !== id);
+                localStorage.setItem('kdm_scripts', JSON.stringify(scripts));
+                renderScripts();
+                showToast('Đã xóa script thành công!');
+            }
+        }
+
+        // Copy Code vào Clipboard
+        function copyCode(encodedCode) {
+            const code = decodeURIComponent(encodedCode);
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Đã sao chép mã Script!');
+            }).catch(() => {
+                showToast('Lỗi khi sao chép!');
+            });
+        }
+
+        // Modal Controls
+        function openModal() {
+            document.getElementById('addModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').classList.remove('active');
+        }
+
+        // Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Utility Escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Initialize App
+        window.onload = renderScripts;
+    </script>
+</body>
+</html>
